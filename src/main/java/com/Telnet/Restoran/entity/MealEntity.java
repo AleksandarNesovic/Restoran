@@ -3,48 +3,49 @@ package com.Telnet.Restoran.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="meals")
 public class MealEntity {
-	
-	
+
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="meal_id")
 	private int meal_id;
-	
+
 	@Column(name="name")
 	private String name;
-	
+
 	@Column(name="price")
 	private double price;
-	
+
 	@Column(name="link")
 	private String link;
-	
+
 	@Column(name="piece")
 	private boolean piece;
-	
-	private int numberOfMeals;
-	
-	@ManyToOne
+
+	@ManyToOne()
+	@JoinColumn(name="category_id")
 	private CategoryEntity category;
 
 	public MealEntity() {
 		super();
 	}
 
-	public MealEntity(String name, double price, String link, boolean piece, int numberOfMeals,
+	public MealEntity(String name, double price, String link, boolean piece,
 			CategoryEntity category) {
 		super();
 		this.name = name;
 		this.price = price;
 		this.link = link;
 		this.piece = piece;
-		this.numberOfMeals = numberOfMeals;
-		this.category = category;
+		this.category=category;
 	}
 
 	public int getMeal_id() {
@@ -87,14 +88,6 @@ public class MealEntity {
 		this.piece = piece;
 	}
 
-	public int getNumberOfMeals() {
-		return numberOfMeals;
-	}
-
-	public void setNumberOfMeals(int numberOfMeals) {
-		this.numberOfMeals = numberOfMeals;
-	}
-
 	public CategoryEntity getCategory() {
 		return category;
 	}
@@ -102,7 +95,5 @@ public class MealEntity {
 	public void setCategory(CategoryEntity category) {
 		this.category = category;
 	}
-	
-	
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Telnet.Restoran.DAO.MealDAO;
@@ -22,7 +23,7 @@ public class MealController {
 	@Autowired
 	MealDAO mealDAO;
 	
-	@GetMapping
+	@RequestMapping(method = RequestMethod.GET)
 	public List<MealEntity> getAllMeals(){
 		return mealDAO.getAllMeals();
 	}

@@ -16,7 +16,7 @@ public interface MealRepository extends JpaRepository<MealEntity, Integer>{
 	
 	@Transactional
 	@Modifying
-	@Query(value="UPDATE MealEntity m SET m.name=:name, m.price=:price, m.link=:link, m.piece=:piece,m.category=category WHERE m.meal_id=:meal_id")
+	@Query(value="UPDATE MealEntity m SET m.name=:name, m.price=:price, m.link=:link, m.piece=:piece,m.category=:category WHERE m.meal_id=:meal_id")
 	public void updateMeal(@Param("meal_id") int id,@Param("name") String name,@Param("price") double price,@Param("link") String link,@Param("piece") boolean piece,@Param("category") CategoryEntity category);
 		
 }
