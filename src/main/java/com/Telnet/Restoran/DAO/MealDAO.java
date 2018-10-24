@@ -2,6 +2,7 @@ package com.Telnet.Restoran.DAO;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +45,9 @@ public class MealDAO implements MealService{
 		mealRepo.deleteById(id);
 		
 	}
-
+	@Override
+	public List<MealEntity> getMealsByCategory(int categoryId){
+		List<MealEntity> meals=mealRepo.findByCategoryId(categoryId);
+		return meals;
+	}
 }

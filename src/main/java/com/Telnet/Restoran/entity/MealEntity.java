@@ -29,7 +29,10 @@ public class MealEntity {
 
 	@Column(name="piece")
 	private boolean piece;
-
+	
+	@Column(name="category_id", insertable=false,updatable=false)
+	private int categoryId;
+	
 	@ManyToOne()
 	@JoinColumn(name="category_id")
 	private CategoryEntity category;

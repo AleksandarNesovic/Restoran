@@ -15,4 +15,6 @@ public interface MealService {
 	public void updateMeal(MealEntity meal,int id);
 	
 	public void deleteMeal(int id);
+	
+	public List<MealEntity> getMealsByCategory(int categoryId);
 }

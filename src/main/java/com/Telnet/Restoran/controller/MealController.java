@@ -31,6 +31,10 @@ public class MealController {
 	public MealEntity getMealById(@PathVariable int id) {
 		return mealDAO.getMealById(id);
 	}
+	@GetMapping("/category/{id}")
+	public List<MealEntity> getMealsByCategory(@PathVariable int id){
+		return mealDAO.getMealsByCategory(id);
+	}
 	@PostMapping
 	public void insertMeal(@RequestBody MealEntity meal) {
 		mealDAO.insertMeal(meal);

@@ -2,6 +2,7 @@ package com.Telnet.Restoran.DAO;
 
 
 import java.util.List;
+
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -10,7 +11,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.Telnet.Restoran.DTO.CategoryDTO;
 import com.Telnet.Restoran.entity.CategoryEntity;
 import com.Telnet.Restoran.repositories.CategoryRepository;
 import com.Telnet.Restoran.service.CategoryService;

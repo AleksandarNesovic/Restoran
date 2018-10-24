@@ -1,5 +1,7 @@
 package com.Telnet.Restoran.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +21,5 @@ public interface MealRepository extends JpaRepository<MealEntity, Integer>{
 	@Query(value="UPDATE MealEntity m SET m.name=:name, m.price=:price, m.link=:link, m.piece=:piece,m.category=:category WHERE m.meal_id=:meal_id")
 	public void updateMeal(@Param("meal_id") int id,@Param("name") String name,@Param("price") double price,@Param("link") String link,@Param("piece") boolean piece,@Param("category") CategoryEntity category);
 		
+	public List<MealEntity> findByCategoryId(int categoryId);
 }

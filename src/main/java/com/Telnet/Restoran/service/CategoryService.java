@@ -2,7 +2,6 @@ package com.Telnet.Restoran.service;
 
 import java.util.List;
 
-import com.Telnet.Restoran.DTO.CategoryDTO;
 import com.Telnet.Restoran.entity.CategoryEntity;
 
 public interface CategoryService {
