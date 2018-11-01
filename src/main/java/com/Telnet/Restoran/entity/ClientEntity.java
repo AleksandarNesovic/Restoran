@@ -1,10 +1,13 @@
 package com.Telnet.Restoran.entity;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -33,6 +36,10 @@ public class ClientEntity {
 
 	@Column(name="email")
 	private String email;
+	
+	@ManyToOne
+	@JoinColumn(name="role_id")
+	private Role roles;
 
 	public ClientEntity() {
 		super();
@@ -102,6 +109,14 @@ public class ClientEntity {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Role getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Role roles) {
+		this.roles = roles;
 	}
 	
 	

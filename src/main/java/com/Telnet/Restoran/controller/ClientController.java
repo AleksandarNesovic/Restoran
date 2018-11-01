@@ -34,10 +34,10 @@ public class ClientController {
 	public void insertClient(@RequestBody ClientEntity client) {
 		clientDAO.insertClient(client);
 	}
-	@PutMapping("/{id}")
-	public void updateClient(@RequestBody ClientEntity client,@PathVariable int id) {
-		clientDAO.updateClient(client, id);
-	}
+//	@PutMapping("/{id}")
+//	public void updateClient(@RequestBody ClientEntity client,@PathVariable int id) {
+//		clientDAO.updateClient(client, id);
+//	}
 	@DeleteMapping("/{id}")
 	public void deleteClient(@PathVariable int id) {
 		clientDAO.deleteClient(id);

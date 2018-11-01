@@ -30,7 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 			throws ServletException, IOException {
 		 try {
 	            String jwt = getJwtFromRequest(request);
-
+	            System.out.println(jwt);
 	            if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
 	                int userId = tokenProvider.getUserIdFromJWT(jwt);
 
@@ -40,6 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	                    That would avoid the following database hit. It's completely up to you.
 	                 */
 	                UserDetails userDetails = clientService.loadUserById(userId);
+	                System.out.println(userDetails);
 	                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 	                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

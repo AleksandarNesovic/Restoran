@@ -29,6 +29,7 @@ public class JwtTokenProvider {
 
     public String generateToken(Authentication authentication) {
     	ClientPrincipal userPrincipal=(ClientPrincipal) authentication.getPrincipal();
+    	System.out.println(userPrincipal);
     	  Date now = new Date();
           Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
@@ -36,7 +37,7 @@ public class JwtTokenProvider {
                   .setSubject(Long.toString(userPrincipal.getClient_id()))
                   .setIssuedAt(new Date())
                   .setExpiration(expiryDate)
-                  .signWith(SignatureAlgorithm.HS256, jwtSecret)
+                  .signWith(SignatureAlgorithm.HS512, jwtSecret)
                   .compact();
     }
     public Integer getUserIdFromJWT(String token) {

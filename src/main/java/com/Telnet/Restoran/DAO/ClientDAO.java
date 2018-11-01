@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Telnet.Restoran.entity.ClientEntity;
@@ -15,6 +16,9 @@ public class ClientDAO implements ClientService{
 
 	@Autowired
 	ClientRepository clientRepo;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@Override
 	public List<ClientEntity> getAllClients() {
@@ -28,13 +32,15 @@ public class ClientDAO implements ClientService{
 
 	@Override
 	public void insertClient(ClientEntity client) {
+		client.setPassword(passwordEncoder.encode(client.getPassword()));
 		clientRepo.save(client);
 	}
 
-	@Override
-	public void updateClient(ClientEntity client, int id) {
-		clientRepo.updateClient(id, client.getName(), client.getLastname(), client.getUsername(), client.getPassword(), client.getRole(), client.getEmail());
-	}
+//	@Override
+//	public void updateClient(ClientEntity client, int id) {
+//		client.setPassword(passwordEncoder.encode(client.getPassword()));
+//		clientRepo.updateClient(id, client.getName(), client.getLastname(), client.getUsername(), client.getPassword(), client.getRole(), client.getEmail(),client.getRoles());
+//	}
 
 	@Override
 	public void deleteClient(int id) {

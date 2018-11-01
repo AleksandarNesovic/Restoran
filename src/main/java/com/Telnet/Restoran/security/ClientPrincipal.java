@@ -3,6 +3,8 @@ package com.Telnet.Restoran.security;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,15 +27,14 @@ public class ClientPrincipal implements UserDetails{
 	@JsonIgnore
 	private String email;
 
-	//private String role;
+	private String role;
 	
-	List<GrantedAuthority> listOfAuthorities;
+	private Collection<? extends GrantedAuthority> authorities;
 	
-	private GrantedAuthority authorities;
-	
+	static List<GrantedAuthority> auth;
 	
 	public ClientPrincipal(int client_id, String name, String lastname, String username, String password, String email,
-			GrantedAuthority authorities) {
+			String role,Collection<? extends GrantedAuthority> authorities) {
 		super();
 		this.client_id = client_id;
 		this.name = name;
@@ -41,6 +42,7 @@ public class ClientPrincipal implements UserDetails{
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.role=role;
 		this.authorities = authorities;
 	}
 	
@@ -58,15 +60,20 @@ public class ClientPrincipal implements UserDetails{
 	public String getEmail() {
 		return email;
 	}
+	public String getRole() {
+		return role;
+	}
 
 	public static ClientPrincipal create(ClientEntity client) {
-		GrantedAuthority authorities = new SimpleGrantedAuthority(client.getRole());
-		return new ClientPrincipal(client.getClient_id(), client.getName(), client.getLastname(), client.getUsername(), client.getPassword(), client.getEmail(), authorities);
+		GrantedAuthority a =new SimpleGrantedAuthority(client.getRoles().getName().name());
+		auth.add(a);
+		return new ClientPrincipal(client.getClient_id(), client.getName(), client.getLastname(), client.getUsername(), client.getPassword(), client.getEmail(),client.getRole(), auth);
 	}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		listOfAuthorities.add(authorities);
-		return listOfAuthorities ;
+		System.out.println(authorities);
+		return authorities;
 	}
 
 	@Override
