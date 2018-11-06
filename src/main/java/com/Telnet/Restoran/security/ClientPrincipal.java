@@ -31,8 +31,6 @@ public class ClientPrincipal implements UserDetails{
 	
 	private Collection<? extends GrantedAuthority> authorities;
 	
-	static List<GrantedAuthority> auth;
-	
 	public ClientPrincipal(int client_id, String name, String lastname, String username, String password, String email,
 			String role,Collection<? extends GrantedAuthority> authorities) {
 		super();
@@ -65,14 +63,14 @@ public class ClientPrincipal implements UserDetails{
 	}
 
 	public static ClientPrincipal create(ClientEntity client) {
-		GrantedAuthority a =new SimpleGrantedAuthority(client.getRoles().getName().name());
-		auth.add(a);
-		return new ClientPrincipal(client.getClient_id(), client.getName(), client.getLastname(), client.getUsername(), client.getPassword(), client.getEmail(),client.getRole(), auth);
+		List<GrantedAuthority> authorities = client.getRoles().stream().map(role ->
+			new SimpleGrantedAuthority(role.getName().name())
+				).collect(Collectors.toList());
+		return new ClientPrincipal(client.getClient_id(), client.getName(), client.getLastname(), client.getUsername(), client.getPassword(), client.getEmail(),client.getRole(), authorities);
 	}
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		System.out.println(authorities);
 		return authorities;
 	}
 

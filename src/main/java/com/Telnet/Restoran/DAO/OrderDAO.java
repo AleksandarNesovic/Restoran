@@ -41,8 +41,8 @@ public class OrderDAO implements OrderService{
 	}
 	
 	@Override
-	public List<OrderEntity> getOrdersByClient(int id) {
-		return orderRepo.findByClientId(id);
+	public List<OrderEntity> getOrdersByClient(int id,int offset) {
+		return orderRepo.findByClientId(id,offset);
 	}
 	@Override
 	public List<OrderEntity> getOrdersByDate(String date) {
@@ -62,6 +62,11 @@ public class OrderDAO implements OrderService{
 	@Override
 	public List<OrderEntity> getOrdersByClientAndDate(String date, int clientId) {
 		return orderRepo.getOrdersByClientAndDate(date, clientId);
+	}
+
+	@Override
+	public List<OrderEntity> getOrdersByDateScroll(String orderDate, int offset) {
+		return orderRepo.getOrdersByDateScroll(orderDate, offset);
 	}
 
 //	@Override

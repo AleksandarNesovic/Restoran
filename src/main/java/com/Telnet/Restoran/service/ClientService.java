@@ -12,7 +12,7 @@ public interface ClientService {
 	
 	public void insertClient(ClientEntity client);
 	
-//	public void updateClient(ClientEntity client,int id);
+	public void updateClient(ClientEntity client,int id);
 	
 	public void deleteClient(int id);
 }

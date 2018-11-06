@@ -23,7 +23,8 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Integer>{
 	@Query(value="UPDATE OrderEntity o SET o.quantity=:quantity, o.order_price=:order_price, o.orderDate=:orderDate, o.piece=:piece,o.display=:display,o.client=:client, o.meal=:meal WHERE o.order_id=:order_id")
 	public void updateOrder(@Param("order_id") int order_id,@Param("quantity") int quantity,@Param("order_price") double order_price, @Param("orderDate") String orderDate,@Param("piece") boolean piece,@Param("display") boolean display,@Param("meal") MealEntity meal,@Param("client") ClientEntity client);
 	
-	public List<OrderEntity> findByClientId(int clientId);
+	@Query(value="Select * FROM orders WHERE client_id=?1 OFFSET ?2 ROWS FETCH NEXT 10 ROWS ONLY",nativeQuery=true)
+	public List<OrderEntity> findByClientId(int clientId,int offset);
 	
 	public List<OrderEntity> findByOrderDate(String orderDate);
 	
@@ -35,6 +36,9 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Integer>{
 	
 	@Query(value="FROM OrderEntity WHERE orderDate=:orderDate AND clientId=:clientId")
 	public List<OrderEntity> getOrdersByClientAndDate(@Param("orderDate") String orderDate,@Param("clientId") int clientId);
+	
+	@Query(value="Select * FROM orders WHERE order_date=?1 OFFSET ?2 ROWS FETCH NEXT 10 ROWS ONLY",nativeQuery=true)
+	public List<OrderEntity> getOrdersByDateScroll(String order_date, int offset);
 	
 //	@Query(value="FROM OrderEntity WHERE orderDate BETWEEN :orderDate and :orderDate")
 //	public List<OrderEntity> getOrdersByPeriod(@Param("orderDate") String startDate,@Param("orderDate") String endDate);

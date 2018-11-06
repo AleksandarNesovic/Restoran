@@ -16,7 +16,7 @@ public interface OrderService {
 	
 	public void deleteOrder(int id);
 	
-	public List<OrderEntity> getOrdersByClient(int id);
+	public List<OrderEntity> getOrdersByClient(int id,int offset);
 	
 	public List<OrderEntity> getOrdersByDate(String date);
 	
@@ -26,5 +26,6 @@ public interface OrderService {
 	
 	public List<OrderEntity> getOrdersByClientAndDate(String date,int clientId);
 	
+	public List<OrderEntity> getOrdersByDateScroll(String orderDate, int offset);
 	//public List<OrderEntity> getOrdersByPeriod(String startDate,String endDate);
 }

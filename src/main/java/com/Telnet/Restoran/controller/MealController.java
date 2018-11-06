@@ -2,7 +2,10 @@ package com.Telnet.Restoran.controller;
 
 import java.util.List;
 
+import javax.ws.rs.QueryParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +20,7 @@ import com.Telnet.Restoran.DAO.MealDAO;
 import com.Telnet.Restoran.entity.MealEntity;
 
 @RestController
-@RequestMapping("/meals")
+@RequestMapping("webapi/meal")
 public class MealController {
 	
 	@Autowired
@@ -31,9 +34,13 @@ public class MealController {
 	public MealEntity getMealById(@PathVariable int id) {
 		return mealDAO.getMealById(id);
 	}
-	@GetMapping("/category/{id}")
-	public List<MealEntity> getMealsByCategory(@PathVariable int id){
-		return mealDAO.getMealsByCategory(id);
+	@GetMapping("/category/{categoryId}/scroll")
+	public List<MealEntity> getMealsByCategory(@PathVariable int categoryId,@QueryParam("offset") int offset){
+		return mealDAO.findMealsByCategory(categoryId, offset);
+	}
+	@GetMapping("category/scroll")
+	public Page<MealEntity> getAllMealsByCategory(@QueryParam("offset") int offset){
+		return mealDAO.getMealsByCategory(offset, 10);
 	}
 	@PostMapping
 	public void insertMeal(@RequestBody MealEntity meal) {

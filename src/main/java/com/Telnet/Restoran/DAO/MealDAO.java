@@ -4,6 +4,8 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.Telnet.Restoran.entity.MealEntity;
@@ -46,8 +48,14 @@ public class MealDAO implements MealService{
 		
 	}
 	@Override
-	public List<MealEntity> getMealsByCategory(int categoryId){
-		List<MealEntity> meals=mealRepo.findByCategoryId(categoryId);
+	public List<MealEntity> findMealsByCategory(int categoryId,int offset){
+		List<MealEntity> meals=mealRepo.findMealByCategory(categoryId, offset);
+		return meals;
+	}
+
+	public Page<MealEntity> getMealsByCategory(int offset, int limit) {
+		PageRequest request = new PageRequest(offset , limit);
+		Page<MealEntity> meals=mealRepo.findAll(request);
 		return meals;
 	}
 }

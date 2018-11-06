@@ -2,6 +2,8 @@ package com.Telnet.Restoran.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.Telnet.Restoran.entity.MealEntity;
 
 
@@ -16,5 +18,5 @@ public interface MealService {
 	
 	public void deleteMeal(int id);
 	
-	public List<MealEntity> getMealsByCategory(int categoryId);
+	public List<MealEntity> findMealsByCategory(int categoryId, int offset);
 }

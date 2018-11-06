@@ -18,7 +18,7 @@ import com.Telnet.Restoran.DAO.OrderDAO;
 import com.Telnet.Restoran.entity.OrderEntity;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/webapi/orders")
 public class OrderController {
 	
 	@Autowired
@@ -45,12 +45,16 @@ public class OrderController {
 		orderDAO.deleteOrder(id);
 	}
 	@GetMapping("/client/{id}")
-	public List<OrderEntity> getOrdersByClient(@PathVariable int id){
-		return orderDAO.getOrdersByClient(id);
+	public List<OrderEntity> getOrdersByClient(@PathVariable int id,@QueryParam("offset") int offset){
+		return orderDAO.getOrdersByClient(id,offset);
 	}
-	@GetMapping("/date/{date}")
+	@GetMapping("singleDate/{date}")
 	public List<OrderEntity> getOrdersByDate(@PathVariable String date){
 		return orderDAO.getOrdersByDate(date);
+	}
+	@GetMapping("date/{date}")
+	public List<OrderEntity> getOrdersByDateScroll(@PathVariable String date, @QueryParam("offset") int offset){
+		return orderDAO.getOrdersByDateScroll(date, offset);
 	}
 	@GetMapping("/startDate/{date}")
 	public List<OrderEntity> getOrdersByStartDate(@PathVariable String date){

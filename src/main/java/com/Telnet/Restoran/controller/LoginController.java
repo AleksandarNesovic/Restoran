@@ -21,7 +21,7 @@ import com.Telnet.Restoran.repositories.ClientRepository;
 import com.Telnet.Restoran.security.JwtTokenProvider;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("webapi/clients")
 public class LoginController {
 	
 	@Autowired

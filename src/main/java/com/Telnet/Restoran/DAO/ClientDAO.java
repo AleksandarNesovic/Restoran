@@ -32,15 +32,14 @@ public class ClientDAO implements ClientService{
 
 	@Override
 	public void insertClient(ClientEntity client) {
-		client.setPassword(passwordEncoder.encode(client.getPassword()));
 		clientRepo.save(client);
 	}
 
-//	@Override
-//	public void updateClient(ClientEntity client, int id) {
-//		client.setPassword(passwordEncoder.encode(client.getPassword()));
-//		clientRepo.updateClient(id, client.getName(), client.getLastname(), client.getUsername(), client.getPassword(), client.getRole(), client.getEmail(),client.getRoles());
-//	}
+	@Override
+	public void updateClient(ClientEntity client, int id) {
+		client.setPassword(passwordEncoder.encode(client.getPassword()));
+		clientRepo.updateClient(id, client.getName(), client.getLastname(), client.getUsername(), client.getPassword(), client.getRole(), client.getEmail());
+	}
 
 	@Override
 	public void deleteClient(int id) {

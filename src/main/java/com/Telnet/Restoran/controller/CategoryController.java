@@ -15,7 +15,7 @@ import com.Telnet.Restoran.DAO.CategoryDAO;
 import com.Telnet.Restoran.entity.CategoryEntity;
 
 @RestController
-@RequestMapping(value="/category")
+@RequestMapping(value="/webapi/category")
 public class CategoryController {
 	
 	@Autowired
