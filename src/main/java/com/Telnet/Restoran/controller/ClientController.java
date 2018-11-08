@@ -32,7 +32,7 @@ import com.Telnet.Restoran.repositories.ClientRepository;
 import com.Telnet.Restoran.repositories.RoleRepository;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("webapi/clients")
 @Secured("ROLE_ADMIN")
 public class ClientController {
 

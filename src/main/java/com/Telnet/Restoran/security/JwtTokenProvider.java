@@ -32,12 +32,17 @@ public class JwtTokenProvider {
     	  Date now = new Date();
           Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
-          return Jwts.builder()
-                  .setSubject(Long.toString(userPrincipal.getClient_id()))
-                  .setIssuedAt(new Date())
-                  .setExpiration(expiryDate)
-                  .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                  .compact();
+           String token;
+           
+           token = Jwts.builder()
+           .setSubject(Long.toString(userPrincipal.getClient_id()))
+           .setIssuedAt(new Date())
+           .setExpiration(expiryDate)
+           .signWith(SignatureAlgorithm.HS512, jwtSecret)
+           .compact();
+           System.out.println(token);
+           
+           return token;
     }
     public Integer getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()

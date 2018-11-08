@@ -80,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                         .permitAll()
                     .antMatchers( "/webapi/clients/**")
                         .permitAll()
-                    .antMatchers(HttpMethod.GET, "/webapi/meals","/webapi/meals/*", "/webapi/category","/webapi/clients/*").
+                    .antMatchers(HttpMethod.GET, "/webapi/meals/**","/webapi/meals", "/webapi/category/**","/webapi/clients/*").
                     	permitAll()
                     .anyRequest()
                         .authenticated();

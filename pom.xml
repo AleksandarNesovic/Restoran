@@ -65,10 +65,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-binding</artifactId>
+			<version>2.27</version>
+		</dependency>
+
+
+
 	</dependencies>
 
 	<build>
-	<finalName>Restoran</finalName>
+		<finalName>Restoran</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

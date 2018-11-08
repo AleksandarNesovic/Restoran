@@ -1,9 +1,13 @@
 package com.Telnet.Restoran.controller;
 
+import javax.json.Json;
 import javax.validation.Valid;
-
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.JsonObjectSerializer;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +23,7 @@ import com.Telnet.Restoran.payload.JwtAuthenticationResponse;
 import com.Telnet.Restoran.payload.LoginRequest;
 import com.Telnet.Restoran.repositories.ClientRepository;
 import com.Telnet.Restoran.security.JwtTokenProvider;
+
 
 @RestController
 @RequestMapping("webapi/clients")
@@ -36,8 +41,8 @@ public class LoginController {
 	@Autowired
 	JwtTokenProvider tokenProvider;
 	
-	@PostMapping("/login")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	@PostMapping(value="/login", produces= MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 		System.out.println(loginRequest.getPassword());
 		Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -47,7 +52,9 @@ public class LoginController {
                 );
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        String jwt = "Bearer "+tokenProvider.generateToken(authentication);
+        
+        System.out.println(jwt);
+        return new ResponseEntity<String> (Json.createValue(jwt).toString(),HttpStatus.OK);
     }
 }
