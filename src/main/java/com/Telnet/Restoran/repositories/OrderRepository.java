@@ -35,10 +35,13 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Integer>{
 	public List<OrderEntity> getOrdersByEndDate(@Param("orderDate") String orderDate);
 	
 	@Query(value="FROM OrderEntity WHERE orderDate=:orderDate AND clientId=:clientId")
-	public List<OrderEntity> getOrdersByClientAndDate(@Param("orderDate") String orderDate,@Param("clientId") int clientId);
+	public List<OrderEntity> getOrdersCombination(@Param("orderDate") String orderDate,@Param("clientId") int clientId);
 	
 	@Query(value="Select * FROM orders WHERE order_date=?1 OFFSET ?2 ROWS FETCH NEXT 10 ROWS ONLY",nativeQuery=true)
 	public List<OrderEntity> getOrdersByDateScroll(String order_date, int offset);
+	
+	@Query(value="Select * FROM orders WHERE order_date=?1 AND client_id=?2 OFFSET ?3 ROWS FETCH NEXT 10 ROWS ONLY",nativeQuery=true)
+	public List<OrderEntity> getOrdersByClientAndDate(String order_date, int client_id,int offset);
 	
 //	@Query(value="FROM OrderEntity WHERE orderDate BETWEEN :orderDate and :orderDate")
 //	public List<OrderEntity> getOrdersByPeriod(@Param("orderDate") String startDate,@Param("orderDate") String endDate);

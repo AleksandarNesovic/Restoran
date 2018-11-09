@@ -10,7 +10,7 @@ public interface OrderService {
 	
 	public OrderEntity getOrderById(int id);
 	
-	public void insertOrder(OrderEntity order);
+	public void insertOrder(List<OrderEntity> order);
 	
 	public void updateOrder(OrderEntity order,int id);
 	
@@ -24,8 +24,10 @@ public interface OrderService {
 	
 	public List<OrderEntity> getOrdersByEndDate(String date);
 	
-	public List<OrderEntity> getOrdersByClientAndDate(String date,int clientId);
+	public List<OrderEntity> getOrdersCombination(String date,int clientId);
 	
 	public List<OrderEntity> getOrdersByDateScroll(String orderDate, int offset);
+	
+	public List<List<OrderEntity>> getOrdersByClientAndDate(String date, int[] idList, int offset);
 	//public List<OrderEntity> getOrdersByPeriod(String startDate,String endDate);
 }

@@ -33,8 +33,8 @@ public class OrderController {
 	public OrderEntity getOrderById(@PathVariable int id) {
 		return orderDAO.getOrderById(id);
 	}
-	@PostMapping
-	public void insertOrder(@RequestBody OrderEntity order) {
+	@PostMapping("/list")
+	public void insertOrder(@RequestBody List<OrderEntity> order) {
 		orderDAO.insertOrder(order);
 	}
 	@PutMapping("/{id}")
@@ -66,8 +66,17 @@ public class OrderController {
 		return orderDAO.getOrdersByEndDate(date);
 	}
 	@GetMapping("/combination")
-	public List<OrderEntity> getOrdersByClientAndDate(@QueryParam("date") String date,@QueryParam("clientId") int clientId){
-		return orderDAO.getOrdersByClientAndDate(date, clientId);
+	public List<OrderEntity> getOrdersCombination(@QueryParam("date") String date,@QueryParam("clientId") int clientId){
+		return orderDAO.getOrdersCombination(date, clientId);
+	}
+	@GetMapping("/clientAndDate")
+	public List<List<OrderEntity>> getOrdersByClientsAndDate(@QueryParam("date") String date,@QueryParam("client_id") String client_id,@QueryParam("offset") int offset){
+		String[] items=client_id.split(",");
+		int[] id=new int[items.length];
+		for (int i = 0; i < items.length; i++) {
+			id[i]=Integer.parseInt(items[i]);
+		}
+		return orderDAO.getOrdersByClientAndDate(date,id,offset);
 	}
 //	@GetMapping("/period")
 //	public List<OrderEntity> getOrdersByPeriod(@QueryParam("start") String startDate,@QueryParam("end") String endDate){

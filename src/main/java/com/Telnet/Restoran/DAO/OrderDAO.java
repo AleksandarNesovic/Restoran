@@ -1,5 +1,6 @@
 package com.Telnet.Restoran.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,11 @@ public class OrderDAO implements OrderService{
 	}
 
 	@Override
-	public void insertOrder(OrderEntity order) {
-		orderRepo.save(order);		
+	public void insertOrder(List<OrderEntity> order) {
+		for (OrderEntity orderEntity : order) {
+			orderRepo.save(orderEntity);
+		}
+				
 	}
 
 	@Override
@@ -60,13 +64,23 @@ public class OrderDAO implements OrderService{
 	}
 
 	@Override
-	public List<OrderEntity> getOrdersByClientAndDate(String date, int clientId) {
-		return orderRepo.getOrdersByClientAndDate(date, clientId);
+	public List<OrderEntity> getOrdersCombination(String date, int clientId) {
+		return orderRepo.getOrdersCombination(date, clientId);
 	}
 
 	@Override
 	public List<OrderEntity> getOrdersByDateScroll(String orderDate, int offset) {
 		return orderRepo.getOrdersByDateScroll(orderDate, offset);
+	}
+	@Override
+	public List<List<OrderEntity>> getOrdersByClientAndDate(String date, int[] idList, int offset) {
+		List<OrderEntity> listOfOrders=new ArrayList<OrderEntity>();
+		List<List<OrderEntity>> list=new ArrayList<>();
+		for (int id : idList) {
+			listOfOrders=orderRepo.getOrdersByClientAndDate(date, id, offset);
+			list.add(listOfOrders);
+		} 
+		return list;
 	}
 
 //	@Override
