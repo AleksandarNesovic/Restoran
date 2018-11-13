@@ -27,11 +27,8 @@ public class OrderDAO implements OrderService{
 	}
 
 	@Override
-	public void insertOrder(List<OrderEntity> order) {
-		for (OrderEntity orderEntity : order) {
-			orderRepo.save(orderEntity);
-		}
-				
+	public void insertOrder(OrderEntity order) {
+			orderRepo.save(order);
 	}
 
 	@Override

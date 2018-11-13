@@ -1,11 +1,15 @@
 package com.Telnet.Restoran.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.QueryParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Telnet.Restoran.DAO.ClientDAO;
 import com.Telnet.Restoran.DAO.OrderDAO;
+import com.Telnet.Restoran.entity.ClientEntity;
 import com.Telnet.Restoran.entity.OrderEntity;
+import com.Telnet.Restoran.security.JwtTokenProvider;
 
 @RestController
 @RequestMapping("/webapi/orders")
@@ -25,6 +32,12 @@ public class OrderController {
 	@Autowired
 	OrderDAO orderDAO;
 	
+	 @Autowired
+	 private JwtTokenProvider tokenProvider;
+	
+	 @Autowired
+	 ClientDAO clientDAO;
+	 
 	@GetMapping
 	public List<OrderEntity> getAllOrders(){
 		return orderDAO.getAllOrders();
@@ -34,8 +47,25 @@ public class OrderController {
 		return orderDAO.getOrderById(id);
 	}
 	@PostMapping("/list")
-	public void insertOrder(@RequestBody List<OrderEntity> order) {
-		orderDAO.insertOrder(order);
+	public void insertOrder(@RequestBody List<OrderEntity> order,HttpServletRequest request) {
+		String datum = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+		
+		 String jwt = getJwtFromRequest(request);
+		 int userId = tokenProvider.getUserIdFromJWT(jwt);
+		 ClientEntity client=clientDAO.getClientById(userId);
+
+		for (OrderEntity orderEntity : order) {
+			orderEntity.setOrderDate(datum);
+			orderEntity.setClient(client);
+			if(orderEntity.getMeal().isPiece()==false) {
+				orderEntity.setPiece(false);
+			}else {
+				orderEntity.setPiece(true);
+			}
+			
+			orderDAO.insertOrder(orderEntity);
+		}
+		
 	}
 	@PutMapping("/{id}")
 	public void updateOrder(@RequestBody OrderEntity order, @PathVariable int id) {
@@ -82,4 +112,12 @@ public class OrderController {
 //	public List<OrderEntity> getOrdersByPeriod(@QueryParam("start") String startDate,@QueryParam("end") String endDate){
 //		return orderDAO.getOrdersByPeriod(startDate, endDate);
 //	}
+	
+	private String getJwtFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7, bearerToken.length());
+        }
+        return null;
+    }
 }

@@ -10,7 +10,7 @@ public interface OrderService {
 	
 	public OrderEntity getOrderById(int id);
 	
-	public void insertOrder(List<OrderEntity> order);
+	public void insertOrder(OrderEntity order);
 	
 	public void updateOrder(OrderEntity order,int id);
 	
