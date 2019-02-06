@@ -33,22 +33,30 @@ public class MealEntity {
 	@Column(name="category_id", insertable=false,updatable=false)
 	private int categoryId;
 	
+	@Column(name="restaurant_id", insertable=false,updatable=false)
+	private int restaurantId;
+	
 	@ManyToOne()
 	@JoinColumn(name="category_id")
 	private CategoryEntity category;
+	
+	@ManyToOne()
+	@JoinColumn(name="restaurant_id")
+	private RestaurantEntity restaurant;
 
 	public MealEntity() {
 		super();
 	}
 
 	public MealEntity(String name, double price, String link, boolean piece,
-			CategoryEntity category) {
+			CategoryEntity category,RestaurantEntity restaurant) {
 		super();
 		this.name = name;
 		this.price = price;
 		this.link = link;
 		this.piece = piece;
 		this.category=category;
+		this.restaurant=restaurant;
 	}
 
 	public int getMeal_id() {
@@ -99,4 +107,29 @@ public class MealEntity {
 		this.category = category;
 	}
 
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public int getRestaurantId() {
+		return restaurantId;
+	}
+
+	public void setRestaurantId(int restaurantId) {
+		this.restaurantId = restaurantId;
+	}
+
+	public RestaurantEntity getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(RestaurantEntity restaurant) {
+		this.restaurant = restaurant;
+	}
+
+	
 }

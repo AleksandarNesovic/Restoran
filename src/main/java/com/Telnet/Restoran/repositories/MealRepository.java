@@ -28,4 +28,9 @@ public interface MealRepository extends JpaRepository<MealEntity, Integer>{
 	public List<MealEntity> findMealByCategory(int categoryId,int offset);
 	
 	public List<MealEntity> findByCategoryId(int categoryId,Pageable pageable);
+	
+	@Transactional
+	@Modifying
+	@Query(value="Select m.meal_id, m.name, m.price, m.link, m.piece, m.category_id, m.restaurant_id from meals m where m.category_id=?1 AND m.restaurant_id=?2 offset ?3 ROWS FETCH NEXT 5 ROWS ONLY",nativeQuery = true)
+	List<MealEntity> findAllByCategoryIdAndRestaurantId(int categoryId, int restaurantId,int offset);
 }

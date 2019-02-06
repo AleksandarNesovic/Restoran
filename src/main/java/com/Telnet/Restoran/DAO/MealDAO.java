@@ -23,9 +23,7 @@ public class MealDAO implements MealService{
 		
 		List<MealEntity> allMeals=mealRepo.findAll();
 		return allMeals;
-		
 	}
-
 	@Override
 	public MealEntity getMealById(int id) {
 		MealEntity meal=mealRepo.findById(id).get();
@@ -57,5 +55,11 @@ public class MealDAO implements MealService{
 		PageRequest request = new PageRequest(offset , limit);
 		Page<MealEntity> meals=mealRepo.findAll(request);
 		return meals;
+	}
+
+	@Override
+	public List<MealEntity> getMealsByCategoryAndRestaurant(int categoryId, int restaurantId,int offset) {
+	
+		return mealRepo.findAllByCategoryIdAndRestaurantId(categoryId, restaurantId,offset);
 	}
 }

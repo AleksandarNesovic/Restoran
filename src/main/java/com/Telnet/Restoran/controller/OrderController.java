@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.QueryParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,12 +56,6 @@ public class OrderController {
 		for (OrderEntity orderEntity : order) {
 			orderEntity.setOrderDate(datum);
 			orderEntity.setClient(client);
-			if(orderEntity.getMeal().isPiece()==false) {
-				orderEntity.setPiece(false);
-			}else {
-				orderEntity.setPiece(true);
-			}
-			
 			orderDAO.insertOrder(orderEntity);
 		}
 		

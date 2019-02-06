@@ -52,14 +52,13 @@ public class OrderEntity {
 	}
 
 	public OrderEntity(int quantity, double order_price, String order_date, boolean piece, boolean display,
-			MealEntity meal, ClientEntity client,int client_id) {
+			MealEntity meal, ClientEntity client) {
 		super();
 		this.quantity = quantity;
 		this.order_price = order_price;
 		this.orderDate = order_date;
 		this.piece = piece;
 		this.display = display;
-		this.clientId=client_id;
 		this.meal = meal;
 		this.client = client;
 	}

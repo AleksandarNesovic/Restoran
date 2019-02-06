@@ -19,4 +19,8 @@ public interface MealService {
 	public void deleteMeal(int id);
 	
 	public List<MealEntity> findMealsByCategory(int categoryId, int offset);
+	
+	public Page<MealEntity> getMealsByCategory(int offset, int limit);
+	
+	List<MealEntity> getMealsByCategoryAndRestaurant(int categoryId, int restaurantId,int offset);
 }
