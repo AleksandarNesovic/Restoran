@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Telnet.Restoran.DAO.CategoryDAO;
 import com.Telnet.Restoran.entity.CategoryEntity;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(tags = "Categories",description="Set of endpoints for Creating, Retrieving, Updating and Deleting of Category.")
 @RestController
 @RequestMapping(value="/webapi/category")
 public class CategoryController {
@@ -22,6 +26,7 @@ public class CategoryController {
 	CategoryDAO categoryDAO;
 	
 	@RequestMapping(method = RequestMethod.GET)
+	@ApiOperation("Returns list of all Categories")
 	public ResponseEntity<List<CategoryEntity>> getAllCategories(){
 		
 		return new ResponseEntity<List<CategoryEntity>>(categoryDAO.getAllCategories(), HttpStatus.OK);
