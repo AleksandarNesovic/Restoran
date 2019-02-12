@@ -33,7 +33,6 @@ import com.Telnet.Restoran.repositories.RoleRepository;
 
 @RestController
 @RequestMapping("webapi/clients")
-@Secured("ROLE_ADMIN")
 public class ClientController {
 
 	@Autowired

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Telnet.Restoran.DTO.MealDTO;
 import com.Telnet.Restoran.entity.MealEntity;
 import com.Telnet.Restoran.service.MealService;
 
@@ -63,4 +64,10 @@ public class MealController {
 		return new ResponseEntity<List<MealEntity>>(mealService.getMealsByCategoryAndRestaurant(categoryId, restaurantId,offset),HttpStatus.OK);
 	}
 
+	@GetMapping("/scroll")
+	public ResponseEntity<List<MealDTO>> getScrollMeal(@QueryParam("offset") int offset){
+		
+		return new ResponseEntity<List<MealDTO>>(mealService.getScrollMeals(offset),HttpStatus.OK);
+	
+	}
 }

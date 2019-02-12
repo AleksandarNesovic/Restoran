@@ -1,5 +1,6 @@
 package com.Telnet.Restoran.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.Telnet.Restoran.DTO.MealDTO;
 import com.Telnet.Restoran.entity.MealEntity;
 import com.Telnet.Restoran.repositories.MealRepository;
 import com.Telnet.Restoran.service.MealService;
@@ -61,5 +63,20 @@ public class MealDAO implements MealService{
 	public List<MealEntity> getMealsByCategoryAndRestaurant(int categoryId, int restaurantId,int offset) {
 	
 		return mealRepo.findAllByCategoryIdAndRestaurantId(categoryId, restaurantId,offset);
+	}
+	@Override
+	public List<MealDTO> getScrollMeals(int offset) {
+		int count=mealRepo.MealsCount();
+		
+		List<MealEntity> meals=mealRepo.findAllMeals(offset);
+		
+		List<MealDTO> mealsDTO=new ArrayList<MealDTO>();
+		
+		meals.forEach(meal->{
+			
+			MealDTO mealDTO=new MealDTO(meal,meal.getCategory(),meal.getRestaurant(), count);
+			mealsDTO.add(mealDTO);
+		});
+		return mealsDTO;
 	}
 }

@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.Telnet.Restoran.DTO.MealDTO;
 import com.Telnet.Restoran.entity.MealEntity;
 
 
 public interface MealService {
+	
 	public List<MealEntity> getAllMeals();
 	
 	public MealEntity getMealById(int id);
@@ -23,4 +25,6 @@ public interface MealService {
 	public Page<MealEntity> getMealsByCategory(int offset, int limit);
 	
 	List<MealEntity> getMealsByCategoryAndRestaurant(int categoryId, int restaurantId,int offset);
+	
+	List<MealDTO> getScrollMeals(int offset);
 }

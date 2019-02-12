@@ -1,5 +1,7 @@
 package com.Telnet.Restoran.DTO;
 
+import com.Telnet.Restoran.entity.CategoryEntity;
+
 public class CategoryDTO {
 	
 	private long category_id;
@@ -8,10 +10,11 @@ public class CategoryDTO {
 	public CategoryDTO() {
 		super();
 	}
-	public CategoryDTO(String name, String link) {
+	public CategoryDTO(CategoryEntity category) {
 		super();
-		this.name = name;
-		this.link = link;
+		this.category_id=category.getCategory_id();
+		this.name = category.getName();
+		this.link = category.getLink();
 	}
 	public long getCategory_id() {
 		return category_id;

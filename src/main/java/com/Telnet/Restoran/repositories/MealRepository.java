@@ -33,4 +33,14 @@ public interface MealRepository extends JpaRepository<MealEntity, Integer>{
 	@Modifying
 	@Query(value="Select m.meal_id, m.name, m.price, m.link, m.piece, m.category_id, m.restaurant_id from meals m where m.category_id=?1 AND m.restaurant_id=?2 offset ?3 ROWS FETCH NEXT 5 ROWS ONLY",nativeQuery = true)
 	List<MealEntity> findAllByCategoryIdAndRestaurantId(int categoryId, int restaurantId,int offset);
+	
+	@Transactional
+	@Modifying
+	@Query(value="select m.meal_id, m.name, m.price, m.link, m.piece, c.category_id, c.link as categoryLink, c.name as categoryName from meals m join category c on m.category_id=c.category_id OFFSET ?1 ROWS FETCH NEXT 10 ROWS ONLY",nativeQuery = true)
+	List<MealEntity> findAllMeals(int offset);
+	
+	@Query(value="Select count(*) from meals",nativeQuery=true)
+	int MealsCount();
+	
+	
 }

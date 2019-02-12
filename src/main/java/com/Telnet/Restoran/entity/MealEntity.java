@@ -43,7 +43,7 @@ public class MealEntity {
 	@ManyToOne()
 	@JoinColumn(name="restaurant_id")
 	private RestaurantEntity restaurant;
-
+	
 	public MealEntity() {
 		super();
 	}
@@ -131,5 +131,4 @@ public class MealEntity {
 		this.restaurant = restaurant;
 	}
 
-	
 }

@@ -14,6 +14,9 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.GrantType;
+import springfox.documentation.service.OAuth;
+import springfox.documentation.service.ResourceOwnerPasswordCredentialsGrant;
 import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -32,9 +35,22 @@ public class RestoranApplication {
 	 public Docket api() {
 
 	        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com.Telnet.Restoran.controller"))
-	                .paths(PathSelectors.any()).build()
+	                .paths(PathSelectors.any()).build().securitySchemes(Collections.singletonList(securitySchema()))
 	                .securityContexts(Collections.singletonList(securityContext())).pathMapping("/")
 	                .useDefaultResponseMessages(false).apiInfo(apiInfo());
+	    }
+	 
+	 private OAuth securitySchema() {
+
+	        List<AuthorizationScope> authorizationScopeList = new ArrayList<AuthorizationScope>();
+
+	        List<GrantType> grantTypes = new ArrayList<GrantType>();
+	        GrantType creGrant = new ResourceOwnerPasswordCredentialsGrant("http://localhost:8080/Restoran/webapi/clients/login");
+
+	        grantTypes.add(creGrant);
+	        
+	        return new OAuth("Authorization", authorizationScopeList, grantTypes);
+
 	    }
 
 	 private SecurityContext securityContext() {
