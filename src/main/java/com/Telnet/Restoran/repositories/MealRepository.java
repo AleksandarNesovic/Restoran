@@ -36,7 +36,7 @@ public interface MealRepository extends JpaRepository<MealEntity, Integer>{
 	
 	@Transactional
 	@Modifying
-	@Query(value="select m.meal_id, m.name, m.price, m.link, m.piece, c.category_id, c.link as categoryLink, c.name as categoryName from meals m join category c on m.category_id=c.category_id OFFSET ?1 ROWS FETCH NEXT 10 ROWS ONLY",nativeQuery = true)
+	@Query(value="select m.meal_id, m.name, m.price, m.link, m.piece,m.restaurant_id, c.category_id, c.link as categoryLink, c.name as categoryName from meals m join category c on m.category_id=c.category_id OFFSET ?1 ROWS FETCH NEXT 10 ROWS ONLY",nativeQuery = true)
 	List<MealEntity> findAllMeals(int offset);
 	
 	@Query(value="Select count(*) from meals",nativeQuery=true)
