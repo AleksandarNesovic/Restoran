@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Telnet.Restoran.DTO.OrderDTO;
 import com.Telnet.Restoran.entity.OrderEntity;
 import com.Telnet.Restoran.repositories.OrderRepository;
 import com.Telnet.Restoran.service.OrderService;
@@ -70,12 +71,31 @@ public class OrderDAO implements OrderService{
 		return orderRepo.getOrdersByDateScroll(orderDate, offset);
 	}
 	@Override
-	public List<List<OrderEntity>> getOrdersByClientAndDate(String date, int[] idList, int offset) {
+	public List<OrderEntity> getOrdersByClientAndDate(String date, int[] idList, int offset) {
 		List<OrderEntity> listOfOrders=new ArrayList<OrderEntity>();
-		List<List<OrderEntity>> list=new ArrayList<>();
+		List<OrderEntity> list=new ArrayList<>();
 		for (int id : idList) {
 			listOfOrders=orderRepo.getOrdersByClientAndDate(date, id, offset);
-			list.add(listOfOrders);
+			
+			listOfOrders.forEach(order ->{
+				list.add(order);
+			});
+			
+		} 
+		return list;
+	}
+
+	@Override
+	public List<OrderDTO> getOrdersByClients(int[] idList, int offset) {
+		List<OrderEntity> listOfOrders=new ArrayList<OrderEntity>();
+		List<OrderDTO> list=new ArrayList<>();
+		for (int id : idList) {
+			listOfOrders=orderRepo.findByClientId(id, offset);
+			
+			listOfOrders.forEach(order ->{
+				list.add(new OrderDTO(order));
+			});
+			
 		} 
 		return list;
 	}

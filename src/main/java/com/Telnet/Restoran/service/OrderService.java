@@ -2,6 +2,7 @@ package com.Telnet.Restoran.service;
 
 import java.util.List;
 
+import com.Telnet.Restoran.DTO.OrderDTO;
 import com.Telnet.Restoran.entity.OrderEntity;
 
 public interface OrderService {
@@ -28,6 +29,8 @@ public interface OrderService {
 	
 	public List<OrderEntity> getOrdersByDateScroll(String orderDate, int offset);
 	
-	public List<List<OrderEntity>> getOrdersByClientAndDate(String date, int[] idList, int offset);
+	public List<OrderEntity> getOrdersByClientAndDate(String date, int[] idList, int offset);
 	//public List<OrderEntity> getOrdersByPeriod(String startDate,String endDate);
+	
+	public List<OrderDTO> getOrdersByClients(int[] idList, int offset);
 }
