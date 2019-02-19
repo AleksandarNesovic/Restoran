@@ -100,8 +100,8 @@ public class OrderDAO implements OrderService{
 		return list;
 	}
 
-//	@Override
-//	public List<OrderEntity> getOrdersByPeriod(String startDate, String endDate) {
-//		return orderRepo.getOrdersByPeriod(startDate, endDate);
-//	}
+	@Override
+	public List<OrderEntity> getOrdersByPeriod(String startDate, String endDate,int offset) {
+		return orderRepo.getOrdersByPeriod(startDate, endDate,offset);
+	}
 }

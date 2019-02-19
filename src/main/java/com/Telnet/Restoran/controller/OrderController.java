@@ -116,10 +116,20 @@ public class OrderController {
 		}
 		return new ResponseEntity<List<OrderDTO>>(orderService.getOrdersByClients(ids, offset),HttpStatus.OK);
 	}
-//	@GetMapping("/period")
-//	public List<OrderEntity> getOrdersByPeriod(@QueryParam("start") String startDate,@QueryParam("end") String endDate){
-//		return orderDAO.getOrdersByPeriod(startDate, endDate);
-//	}
+	@GetMapping("/period")
+	public List<OrderEntity> getOrdersByPeriod(@QueryParam("start") String startDate,@QueryParam("end") String endDate,@QueryParam("offset") int offset){
+		return orderService.getOrdersByPeriod(startDate, endDate,offset);
+	}
+	
+	@PutMapping("/listOforders")
+	public ResponseEntity<List<OrderEntity>> updateListOfOrders(@RequestBody List<OrderEntity> orders){
+		
+		orders.forEach(order ->{
+			order.setDisplay(false);
+			orderService.updateOrder(order, order.getOrder_id());
+		});
+		return new ResponseEntity<List<OrderEntity>>(orders,HttpStatus.OK);
+	}
 	
 	private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");

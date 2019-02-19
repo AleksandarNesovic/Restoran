@@ -30,7 +30,8 @@ public interface OrderService {
 	public List<OrderEntity> getOrdersByDateScroll(String orderDate, int offset);
 	
 	public List<OrderEntity> getOrdersByClientAndDate(String date, int[] idList, int offset);
-	//public List<OrderEntity> getOrdersByPeriod(String startDate,String endDate);
+	
+	public List<OrderEntity> getOrdersByPeriod(String startDate,String endDate,int offset);
 	
 	public List<OrderDTO> getOrdersByClients(int[] idList, int offset);
 }

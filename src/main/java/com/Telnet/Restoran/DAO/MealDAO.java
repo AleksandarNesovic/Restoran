@@ -39,7 +39,7 @@ public class MealDAO implements MealService{
 
 	@Override
 	public void updateMeal(MealEntity meal, int id) {
-		mealRepo.updateMeal(id, meal.getName(), meal.getPrice(), meal.getLink(), meal.isPiece(),meal.getCategory());
+		mealRepo.updateMeal(id, meal.getName(), meal.getPrice(), meal.getLink(), meal.isPiece(),meal.getCategory(),meal.getRestaurant());
 	}
 
 	@Override
